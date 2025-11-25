@@ -1,5 +1,7 @@
 # Terraform Workflow
 
+* HCL - HashiCorp Language - Terraform
+
 * Note: Es necesario que Compute engine API este activada en el proyecto que se eset trabajando.
   * para ver la configuracion creada se revisa el archivo __terraform.tfstate__
   * no eliminar este archivo de configuracion
@@ -39,6 +41,40 @@ La lógica detrás de crear un clúster GKE con Terraform en GCP se basa en cuat
 2. Orquestación de Dependencias, 
 3. Inmutabilidad de la Infraestructura, 
 4. y Adopción del Modelo VPC Nativo de GKE.
+
+
+
+## Master Terraform on GCP GKE: 40 Real-World Demos to become a DevOps SRE and IaC Expert
+
+### DEMO 01 - install CLI Tools: Gcloud CLI, Terraform CLI & VSCODE Editor
+
+### DEMO 02 - Terraform Commands (Init, Validate, Plan, Apply & Destroy)
+
+### DEMO 03 - Terraform Language Basics
+
+* https://developer.hashicorp.com/terraform/language/block/terraform
+* https://developer.hashicorp.com/terraform/language/providers
+* https://developer.hashicorp.com/terraform/language/resources
+
+
+* https://developer.hashicorp.com/terraform/language/resources
+* https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network
+* https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork
+
+
+* https://docs.cloud.google.com/compute/docs/reference/rest/v1/networks
+* https://cloud.google.com/vpc/docs/vpc?hl=es
+* https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall
+* 
+
+* se creara una VPC
+  * una Subnet
+* con dos Reglas de Firewall 
+  * fw_ssh22
+  * fw_http80
+
+
+
 
 
 
