@@ -65,6 +65,9 @@ La lógica detrás de crear un clúster GKE con Terraform en GCP se basa en cuat
 * https://docs.cloud.google.com/compute/docs/reference/rest/v1/networks
 * https://cloud.google.com/vpc/docs/vpc?hl=es
 * https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall
+
+
+* https://developer.hashicorp.com/terraform/language/meta-arguments
 * 
 
 * se creara una VPC
