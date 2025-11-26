@@ -68,7 +68,43 @@ La lógica detrás de crear un clúster GKE con Terraform en GCP se basa en cuat
 
 
 * https://developer.hashicorp.com/terraform/language/meta-arguments
-* 
+* https://developer.hashicorp.com/terraform/language/meta-arguments/depends_on
+* https://developer.hashicorp.com/terraform/tutorials/configuration-language/for-each
+* https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle
+* https://developer.hashicorp.com/terraform/tutorials/0-13/count
+* https://developer.hashicorp.com/terraform/language/meta-arguments/provider
+* https://developer.hashicorp.com/terraform/language/meta-arguments/providers
+
+
+# Outputs
+
+* https://developer.hashicorp.com/terraform/language/values/outputs 
+
+- Son valores que se muestran como si se utilizara una instruccion "return"
+- proporcionan informacion sobre la infraestructura en una linea de comandos por medio de la salida en CLI.
+- al terminar el terraform apply regresa los valores que fueron configurados como "output"
+- maneja atributos y argumentos
+- output <nombreResource> { Instrucciones para regresar un valor para los atributos indicados }
+
+
+### Meta Arguments
+
++ Meta-arguments are a class of arguments built into the Terraform configuration language that control how Terraform creates and manages your infrastructure.
++ You can use meta-arguments in any type of resource. 
++ You can also use most meta-arguments in module blocks.
+
+
+
+
+
+* depends_on: maneja los recursos ocultos o las dependencias de los modulos, que terraform no puede inerfir
+* count: crea o administra varios objetos similares
+* for_each: para crear multiples instancias de acuerdo a un mapeo o un conjunto de cadenas(Strings)
+* Provider: sirve para sobreescribir el proveedor por default
+* lifecycle: define el tiempo de vida del recurso
+
+
+
 
 * se creara una VPC
   * una Subnet
@@ -81,4 +117,49 @@ La lógica detrás de crear un clúster GKE con Terraform en GCP se basa en cuat
 
 
 
+###   Terraform Destroy
+terraform destroy --auto-approve
+[or]
+terraform apply --destroy --auto-approve
+
+
+
+#### Terraform Destroy
+terraform plan -destroy  # You can view destroy plan using this command
+terraform destroy
+
+#### Clean-Up Files
+rm -rf .terraform*
+rm -rf terraform.tfstate*
+
+
+
+
+### Input Variables
+
+* Permiten la customizacion de los recursos o modulos de Terraform si alterar el codigo origen. 
+* Permite la reutilizacion de codigo solo cambiando las variables
+
+#### se Tienen multiples opciones para declarar variables
+
+* variables.tf (Default Values)
+* terraform.tfvars (Setea y Asigna valores)
+* vm.auto.tfvars (define variables para recursos especificos, los valores se aplican en automatico)
+* vm.tfvars (si se usa de esta forma es necesario especificar Environment Variables )
+* Environment Variables
+  * --var-file flag
+  * --var flag
+
+
+
+
+
+### GCP Google Cloud Platform - Terraform Meta-Argument Count
+
+Terraform Meta-argument count
+For Loop with List
+For Loop with Map
+For Loop with Map Advanced
+Legacy Splat Operator (latest) - Returns List
+Latest Generalized Splat Operator - Returns the List
 
