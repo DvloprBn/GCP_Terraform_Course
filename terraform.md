@@ -113,8 +113,24 @@ La lógica detrás de crear un clúster GKE con Terraform en GCP se basa en cuat
   * fw_http80
 
 
+### Query infraesctructure data
+* https://developer.hashicorp.com/terraform/language/data-sources
+* https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_zones
 
 
+
+*  Data Source: permite a terraform utilizar informacion definida fuera de terraform
+*  es definen en "Data Blocks"
+*  ej: data "google_compute_zones" "available" {
+   *  status = "UP"
+*  }
+
+#### Argument Reference
+
+* project: (Optional) Project from which to list available zones. Defaults to project declared in the provider.
+* region: (Optional) Region from which to list available zones. Defaults to project declared in the provider.
+* status: (Optional) Allows to filter list of zones based on their current status.
+  * Status ca be either "UP" or "DOWN". Defaults no filtering (all available zones - both "UP" and "DOWN")
 
 
 ###   Terraform Destroy

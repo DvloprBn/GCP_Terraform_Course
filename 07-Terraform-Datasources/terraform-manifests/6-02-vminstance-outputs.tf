@@ -3,12 +3,8 @@
 1. For Loop with List
 2. For Loop with Map
 3. For Loop with Map Advanced
-4. Legacy Splat Operator (latest) - Returns List       splat operator  =  *
+4. Legacy Splat Operator (latest) - Returns List
 5. Latest Generalized Splat Operator - Returns the List
-*/
-
-/*
-La expresion FOR, habilita de forma eficiente la dministracion de multiples recursos realizando un loop atraves de lists, maps or sets.
 */
 
 # Get each list item separately
@@ -26,22 +22,24 @@ output "vm_name_1" {
 # Output - For Loop with List
 output "for_output_list" {
   description = "For Loop with List"
-  # for expression  with []
   value = [for instance in google_compute_instance.myapp1: instance.name]
 }
 
 # Output - For Loop with Map
 output "for_output_map1" {
   description = "For Loop with Map"
-  # for expression  with {}
   value = {for instance in google_compute_instance.myapp1: instance.name => instance.instance_id}
 }
 
 # Output - For Loop with Map Advanced
 output "for_output_map2" {
   description = "For Loop with Map - Advanced"
-  # c in this case is for counter, it is possible to nemaed it as anything is wished.
   value = {for c, instance in google_compute_instance.myapp1: c => instance.name}
+}
+# VM External IPs
+output "vm_external_ips" {
+  description = "For Loop with Map - Advanced"
+  value = {for c, instance in google_compute_instance.myapp1: c => instance.network_interface.0.access_config.0.nat_ip}
 }
 
 # Output - For Loop with Map Advanced
@@ -50,54 +48,14 @@ output "for_output_map3" {
   value = {for c, instance in google_compute_instance.myapp1: instance.name => instance.instance_id}
 }
 
-# VM External IPs
-output "vm_external_ips" {
-  description = "For Loop with Map - Advanced"
-  value = {for c, instance in google_compute_instance.myapp1: c => instance.network_interface.0.access_config.0.nat_ip}
-}
-
-
 # Output Legacy Splat Operator (Legacy) - Returns the List
-# splat operator = *
 output "legacy_splat_instance" {
   description = "Legacy Splat Operator"
   value = google_compute_instance.myapp1.*.name
 }
 
 # Output Latest Generalized Splat Operator - Returns the List
-# splat operator to get the lastest values on the list = [*]
 output "latest_splat_instance" {
   description = "Generalized latest Splat Operator"
   value = google_compute_instance.myapp1[*].name 
 }
-
-/* 
-------- FOR SINGLE VM INSTANCE -------
-# Terraform Output Values
-## ATTRIBUTES
-output "vm_instanceid" {
-  description = "VM Instance ID"
-  value = google_compute_instance.myapp1.instance_id
-}
-
-output "vm_selflink" {
-  description = "VM Instance Self link"
-  value = google_compute_instance.myapp1.self_link
-}
-
-output "vm_id" {
-  description = "VM ID"
-  value = google_compute_instance.myapp1.id
-}
-
-## ARGUMENTS
-output "vm_name" {
-  description = "VM Name"
-  value = google_compute_instance.myapp1.name
-}
-
-output "vm_machine_type" {
-  description = "VM Machine Type"
-  value = google_compute_instance.myapp1.machine_type
-}
-*/
