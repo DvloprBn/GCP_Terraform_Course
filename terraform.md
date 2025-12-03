@@ -179,3 +179,150 @@ For Loop with Map Advanced
 Legacy Splat Operator (latest) - Returns List
 Latest Generalized Splat Operator - Returns the List
 
+
+
+
+## GKE
+### GKE Cluster Modes & Types
+
+* Modes
+  * GKE standard
+  * GKE Autopilot
+  * 
+* Types
+  * GKE Zonal Cluster
+  * GKE Regional Cluster
+  * GKE Public Cluster
+  * GKE Private Cluster
+  * GKE Alpha Cluster
+  * GKE Cluster using Windows Node Pools
+
+
+- GKE Standard Public Cluster     - Network Design
+  - Google Managed VPC Network    - Project id
+    - Google Managed VPC Network  - MyVPC
+      - Region: us-central1       - Region
+        - GKE Control Plane       - GKE Cluster
+          - Kube API Server Public IP
+          - Kube-apiserver
+          - kube-scheduler
+          - Resource Controllers
+          - Storage
+
+
+
++ Peoject
+  + Customer VPC: myVPC
+    + Region: us-central1
+      + Gke Cluster
+        + Subnet: 10.128.0.0/20
+          + Zone: us-central1-a
+            + Gke Node-1
+              + Public IP
+              + Private IP
+          + Zone: us-central1-b
+            + Gke Node-2
+              + Public IP
+              + Private IP
+
+
+
+
+
+#### Definicion Terraform VPC, GKE, VM & Psql
+
+* Resoruces
+  * google_compute_network
+  * google_compute_subnetwork
+  * google_compute_firewall
+  * google_container_cluster
+  * google_container_node_pool
+  * google_compute_instance
+  * google_sql_database_instance
+  * google_sql_database
+
+##### Orden de Creación Típico: 
+  * VPC/Subred  
+      * -> Cloud SQL Peering/Instancia PSQL 
+          * -> Cluster GKE 
+              * -> VM.
+
+  + Garantía de Convergencia: 
+      + Llama a las APIs de GCP para crear los recursos. Espera activamente a que cada recurso se encuentre en un estado funcional antes de pasar al siguiente. Por ejemplo, no intentará crear los nodos de GKE hasta que el plano de control (el Master) del cluster esté completamente disponible.
+
+  + Actualización del Estado: 
+      + Una vez que un recurso se ha creado con éxito en GCP, Terraform guarda su identidad, configuración y atributos en el archivo de estado (terraform.tfstate). Este archivo es crítico para la gestión futura de la infraestructura.
+
+
+
+A. Definición de Red (VPC)
+    Recurso Clave: __google_compute_network (VPC)__ y __google_compute_subnetwork (Subred)__.
+
+    Teoría: Se define primero una red VPC y al menos una subred dentro de ella. Esta red será el entorno de conectividad para todos los demás recursos.
+
+    Dependencias: Ninguna (es la base).
+
+
+B. Creación del Cluster GKE
+    Recurso Clave: __google_container_cluster__ y __google_container_node_pool__.
+
+    Teoría: El cluster de GKE se define para operar dentro de la VPC y la subred creadas. Los nodos de GKE (que son VMs) deben ser creados en esa subred específica para comunicarse con la red del proyecto.
+
+    Dependencias: El cluster de GKE depende de la existencia previa de la VPC y la Subred. Se referencian explícitamente en la configuración de GKE.
+
+C. Creación de la VM (Servidor de Aplicaciones)
+    Recurso Clave: __google_compute_instance__.
+
+    Teoría: La VM se define para actuar como un servidor de aplicaciones o cualquier componente auxiliar. Al igual que GKE, debe ser configurada para usar la VPC y la Subred correctas para asegurar la conectividad interna.
+
+    Dependencias: La VM depende de la existencia previa de la VPC y la Subred.
+
+D. Creación de la Instancia de PostgreSQL (Cloud SQL)
+    Recurso Clave: __google_sql_database_instance__ y __google_sql_database__.
+
+    Teoría: Cloud SQL es un servicio gestionado, por lo que no reside directamente en una subred de la VPC como las VMs. En su lugar, usa un mecanismo de Acceso a Servicio Privado (Private Service Access - PSA) o VPC Peering.
+
+    Para que la VM y el cluster GKE puedan acceder a la base de datos de forma privada, Terraform debe configurar el peering de la VPC entre tu red y la red interna de servicios de Google.
+
+Dependencias:
+
+    La instancia de Cloud SQL depende de la VPC para establecer el peering.
+
+    La base de datos (lógica) depende de la instancia (física).
+
+
+
+
+
+### TAGS
+
+Los Tags (etiquetas) en una configuración de recursos de Terraform para Google Cloud Platform (GCP) se utilizan principalmente para dos propósitos clave: Redes (Firewall) y Organización/Metadatos.
+
+Aquí tienes una explicación detallada de cada uso:
+
+1. 🌐 Uso en Redes (Firewall Rules)
+Este es el uso más crítico de los tags en recursos como las instancias de Compute Engine (google_compute_instance) o los nodos de un cluster GKE.
+
+¿Qué son? Un tag es una etiqueta de texto simple que asignas a un recurso de red (como una VM).
+
+¿Para qué sirven? Las Reglas de Firewall de VPC (google_compute_firewall) utilizan estos tags como selectores de destino y selectores de origen.
+
+Funcionamiento:
+
+Creas una instancia de VM y le asignas un tag, por ejemplo, app-server.
+
+Creas una regla de firewall que dice: "Permitir el tráfico TCP en el puerto 8080 desde cualquier lugar a cualquier instancia que tenga el tag app-server."
+
+Esto te permite aplicar políticas de seguridad a un grupo de máquinas con una característica o rol común, sin tener que referenciar sus direcciones IP individuales.
+
+Ejemplo Teórico
+Si tienes 50 VMs que ejecutan un servidor web, solo necesitas asignarles el tag http-server. Luego, defines una sola regla de firewall que permite el tráfico HTTP (:80) a todas las instancias con ese tag.
+
+2. 🏷️ Uso en Organización y Metadatos
+Aunque el término "tag" en el contexto de las VMs de Compute Engine se refiere a las etiquetas de red, a menudo se confunde con las Labels (Etiquetas), las cuales tienen un propósito organizacional más amplio, especialmente en otros recursos de GCP (como Cloud SQL, Buckets de Storage, etc.).
+
+
+---
+
+
+
