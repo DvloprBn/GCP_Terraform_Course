@@ -1,4 +1,5 @@
 # Resource: GKE Node Pool 1
+# create GKE Linux Node Pool
 resource "google_container_node_pool" "nodepool_1" {
   name       = "${local.name}-node-pool-1"
   location   = var.gcp_region1

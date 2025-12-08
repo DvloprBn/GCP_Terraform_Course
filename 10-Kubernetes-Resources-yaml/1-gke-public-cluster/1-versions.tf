@@ -7,8 +7,12 @@ terraform {
       version = ">= 5.42.0"
     }
   }
+  
+  # Add Remote Backend as Cloud Storage Bucket 
   backend "gcs" {
-    bucket = "terraform-on-gcp-gke"
+    # terraform-on-gcp-gke
+    # el nombre del bucket debe ser unico a nivel global, lo que indica que una vez creado el bucket, ese nombre no se podra utilizar 
+    bucket = "terraform-on-gcp-gke-ben"
     prefix = "dev/gke-cluster-public"    
   }
 }

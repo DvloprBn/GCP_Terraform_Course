@@ -1,4 +1,4 @@
-# Resource: GKE Cluster
+# Resource: create GKE Cluster
 resource "google_container_cluster" "gke_cluster" {
   name     = "${local.name}-gke-cluster"
   location = var.gcp_region1
