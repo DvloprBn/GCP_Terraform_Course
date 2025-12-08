@@ -13,6 +13,7 @@ terraform {
     # terraform-on-gcp-gke
     # el nombre del bucket debe ser unico a nivel global, lo que indica que una vez creado el bucket, ese nombre no se podra utilizar 
     bucket = "terraform-on-gcp-gke-ben"
+    # creara un folder dentro del bucket y se creara el archivo que almacenara el estado de terraform
     prefix = "dev/gke-cluster-public"    
   }
 }
