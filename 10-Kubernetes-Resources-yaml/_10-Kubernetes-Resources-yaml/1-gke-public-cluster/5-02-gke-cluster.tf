@@ -1,4 +1,5 @@
-# Resource: GKE Cluster
+# Resource: create GKE Cluster
+# very basic public cluster
 resource "google_container_cluster" "gke_cluster" {
   name     = "${local.name}-gke-cluster"
   location = var.gcp_region1
@@ -10,6 +11,7 @@ resource "google_container_cluster" "gke_cluster" {
   initial_node_count       = 1
   # Network
   network = google_compute_network.myvpc.self_link
+  # Subnetwork
   subnetwork = google_compute_subnetwork.mysubnet.self_link
   # In production, change it to true (Enable it to avoid accidental deletion)
   deletion_protection = false

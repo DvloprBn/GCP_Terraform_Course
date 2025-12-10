@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment  
 metadata: # Dictionary
-  name: myapp1-deployment
+  name: myapp1-deployment # nombre del deplyment
 spec: # Dictionary
   replicas: 2
   selector: 
@@ -16,6 +16,7 @@ spec: # Dictionary
       containers: # List
         - name: myapp1-container
           # https://github.com/stacksimplify?tab=packages
+          # descargara la imagen que utilizara
           image: ghcr.io/stacksimplify/kubenginx:1.0.0
           ports: 
             - containerPort: 80          

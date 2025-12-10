@@ -34,6 +34,9 @@
 * para limpiar la carpeta contenedora, una vez eliminados los recursos:
   * rm -rf .terraform* terraform.tfstate*
 
+* rm -rf .terraform*
+* rm -rf terraform.tfstate*
+
 
 
 La lógica detrás de crear un clúster GKE con Terraform en GCP se basa en cuatro pilares fundamentales: 
@@ -325,4 +328,24 @@ Aunque el término "tag" en el contexto de las VMs de Compute Engine se refiere 
 ---
 
 
+un datasource es lo mismo que un bloque de datos
 
+data "terraform_remote_state" "gke" {
+  
+}
+
+
+
+
+
+
+
+---
+
+
+
+Investigar bien sobre los snapshot
+
+relacionado con terraform
+
+---

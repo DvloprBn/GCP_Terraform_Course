@@ -1,4 +1,7 @@
 # Resource: GKE Node Pool 1
+# create GKE Linux Node Pool
+# GKE Standard Public Cluster
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool
 resource "google_container_node_pool" "nodepool_1" {
   name       = "${local.name}-node-pool-1"
   location   = var.gcp_region1

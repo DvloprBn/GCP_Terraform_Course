@@ -6,13 +6,16 @@ terraform {
       source = "hashicorp/google"
       version = ">= 5.42.0"
     }
+    # https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs
     kubernetes = {
       source = "hashicorp/kubernetes"
       version = ">= 2.31"
     }      
   }
+
+  # Add Remote Backend as Cloud Storage Bucket
   backend "gcs" {
-    bucket = "terraform-on-gcp-gke"
+    bucket = "terraform-on-gcp-gke-ben"
     prefix = "dev/k8s-demo1"    
   }  
 }

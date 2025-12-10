@@ -10,3 +10,6 @@ spec:
     - name: http
       port: 80 # Service Port
       targetPort: 80 # Container Port
+
+
+# se crea un servicio del tipo Load Balancer

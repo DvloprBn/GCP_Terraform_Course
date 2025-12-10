@@ -7,13 +7,18 @@ terraform {
       version = ">= 5.42.0"
     }
   }
-  
-  # Add Remote Backend as Cloud Storage Bucket 
+  # es necesario asegurar que el nombre del Bucket es correcto 
+  # caso contrario se recibira un mensaje de error:
+  /*
+    Error: Failed to get existing workspaces: 
+    querying Cloud Storage failed: googleapi: 
+    Error 403: dvloprbn@gmail.com does not have storage.objects.list access 
+    to the Google Cloud Storage bucket. 
+    Permission 'storage.objects.list' denied on resource (or it may not exist)., forbidden
+
+  */
   backend "gcs" {
-    # terraform-on-gcp-gke
-    # el nombre del bucket debe ser unico a nivel global, lo que indica que una vez creado el bucket, ese nombre no se podra utilizar 
     bucket = "terraform-on-gcp-gke-ben"
-    # creara un folder dentro del bucket y se creara el archivo que almacenara el estado de terraform
     prefix = "dev/gke-cluster-public"    
   }
 }

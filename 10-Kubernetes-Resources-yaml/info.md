@@ -6,6 +6,24 @@
 * https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/tree/main/examples
 * 
 
++ eliminar archivos que generan espacio
+rm -rf .terraform*
+rm -rf terraform.tfstate*
+
+* comando du -sh permite saber cuanto pesa el directorio de donde se esta ejecutando el comando
+
+## Kubernetes YAML Manifests - Demo
+
+
+* GKE-Kubernetes Load Balancer Service
+    + GKE Cluster
+      + default namespace
+        + MyApp1 Deployment 
+          + Pods  <--- ReplicaSet  <--- Deployment
+        + User ---> service Port 80 ---> Load Balancer Service  ---> Target Port 80
+          + Service Port 80 > Load Balancer Service > Target 80 > Pods  < ReplicaSet  < Deployment
+
+
 
 ### Create GKE Standard Public Cluster
 
@@ -58,6 +76,16 @@ Notas:
   * Una misma Region podra trabajar con diferentes zonas, respectivas a esa region
   * 
 
+### Kubernetes Deployment
+
+* Kubectl get deploy
+* kubectl get pods
+* Kubectl describe pod <PodName>
+* kubectl get svc ( obtiene los servicios )
+
+# Delete Kubernetes Resources
+* Eliminara todo lo relacionado a Kubernetes
+* kubectl delete -f p2-k8sresources-yaml
 
 
 ### Load Balancer Service
