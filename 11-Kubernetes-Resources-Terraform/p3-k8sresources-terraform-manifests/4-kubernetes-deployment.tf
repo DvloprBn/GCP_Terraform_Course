@@ -1,4 +1,5 @@
 # Kubernetes Deployment Manifest
+# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment_v1
 resource "kubernetes_deployment_v1" "myapp1" {
   metadata {
     name = "myapp1-deployment"

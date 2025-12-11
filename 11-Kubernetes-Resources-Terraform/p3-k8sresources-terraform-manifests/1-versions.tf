@@ -19,3 +19,10 @@ terraform {
     prefix = "dev/k8s-demo1"    
   }  
 }
+
+/*
+
+En este Projecto 3 es donde se ejecutaran las instrucciones de Terrafomr init, plan & apply
+
+*/
+

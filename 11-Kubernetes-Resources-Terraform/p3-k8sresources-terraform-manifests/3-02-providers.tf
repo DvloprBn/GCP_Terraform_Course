@@ -5,6 +5,7 @@ provider "google" {
 }
 
 # GKE Datasource: GKE Cluster details
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/container_cluster
 data "google_container_cluster" "gke" {
   name     = data.terraform_remote_state.gke.outputs.gke_cluster_name
   location = data.terraform_remote_state.gke.outputs.gke_cluster_location
@@ -21,6 +22,7 @@ output "gke_cluster_details" {
 data "google_client_config" "default" {}
 
 # Provider: Kubernetes
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/using_gke_with_terraform
 provider "kubernetes" {
   host                   = "https://${data.google_container_cluster.gke.endpoint}"
   cluster_ca_certificate = base64decode(data.google_container_cluster.gke.master_auth.0.cluster_ca_certificate)

@@ -1,4 +1,5 @@
 # Kubernetes Service Manifest (Type: Load Balancer)
+# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_v1
 resource "kubernetes_service_v1" "lb_service" {
   metadata {
     name = "myapp1-lb-service"
