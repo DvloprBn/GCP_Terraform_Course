@@ -1,5 +1,6 @@
 # Terraform Datasources
 # Datasource: Get a list of Google Compute zones that are UP in a region
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_zones
 data "google_compute_zones" "available" { 
   status = "UP"   
 }

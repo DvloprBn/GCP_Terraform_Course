@@ -1,3 +1,5 @@
+# esta configracion es necesaria para comunicar los pods con Internet
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_route_policy
 # Resource: Cloud Router
 resource "google_compute_router" "cloud_router" {
   name    = "${local.name}-${var.gcp_region1}-cloud-router"
@@ -6,6 +8,7 @@ resource "google_compute_router" "cloud_router" {
 }
 
 # Resource: Cloud NAT
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat
 resource "google_compute_router_nat" "cloud_nat" {
   name   = "${local.name}-${var.gcp_region1}-cloud-nat"
   router = google_compute_router.cloud_router.name

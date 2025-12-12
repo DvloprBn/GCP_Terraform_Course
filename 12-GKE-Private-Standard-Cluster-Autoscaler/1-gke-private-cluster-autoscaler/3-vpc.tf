@@ -11,10 +11,12 @@ resource "google_compute_subnetwork" "mysubnet" {
   network = google_compute_network.myvpc.id 
   private_ip_google_access = true
   ip_cidr_range = var.subnet_ip_range
+  # google_compute_subnetwork.mysubnet.secondary_ip_range[0].range_name
   secondary_ip_range {
     range_name    = "kubernetes-pod-range"
     ip_cidr_range = var.pods_ip_range
   }
+  # google_compute_subnetwork.mysubnet.secondary_ip_range[1].range_name
   secondary_ip_range {
     range_name    = "kubernetes-services-range"
     ip_cidr_range = var.services_ip_range
