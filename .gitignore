@@ -2,8 +2,10 @@
 .backup
 
 .terraform
+.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
+
 tfplan
-.terraform.lock.hcl
+
 .DS_Store
