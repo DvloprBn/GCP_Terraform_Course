@@ -67,8 +67,67 @@ Dependencias:
 
 
 
+
+
+
+
+
 -- 
 
 
 Conectividad Interna
 Una vez creados, el funcionamiento de la conectividad se garantiza porque todos los componentes de la aplicación (GKE y VM) residen en la misma VPC, y tienen una ruta privada para comunicarse con la base de datos PSQL (Cloud SQL) a través del VPC Peering.
+
+
+
+
+
+
+***
+
+
+
+# Practica 13
+
+
+* 
+* Horizontal Pod Autoscaler
+  * DEMO: GKE Horizontal Autoscaler
+
+
+
+
+El Horizontal Pod Autoscaler (HPA) de Kubernetes es un controlador que ajusta automáticamente el número de réplicas de Pods en un Deployment, ReplicaSet o StatefulSet en función de la carga de trabajo observada, como la utilización de CPU o métricas personalizadas.
+
+
+El HPA opera en un bucle de control continuo:
+
+Monitorización de Métricas: El HPA consulta periódicamente las métricas de uso de los Pods objetivo (por defecto, cada 15-30 segundos). Las métricas más comunes son:
+
+Uso de CPU: Expresado como un porcentaje de los recursos solicitados por el Pod.
+
+Uso de Memoria: Similar al CPU.
+
+Métricas Personalizadas y Externas: Como el número de solicitudes por segundo (QPS) o métricas de Google Cloud Monitoring (en GKE).
+
+Cálculo de Réplicas Deseadas: El HPA compara el valor promedio de la métrica observada con el umbral objetivo que tú has definido. Luego, utiliza un algoritmo para calcular el número de réplicas necesarias para alcanzar ese objetivo.
+
+Fórmula Básica (para CPU/Memoria):
+$$Réplicas\ Deseadas = \lceil \frac{Uso\ Actual\ Promedio}{Umbral\ Objetivo} \times Réplicas\ Actuales \rceil$$
+
+Si se configuran múltiples métricas, el HPA evalúa cada una por separado y elige la escala más grande (el mayor número de réplicas deseadas) para asegurar que ninguna métrica exceda su umbral.
+
+Ajuste de Escala (Scaling):
+    
+    Scale Out (Aumentar): Si la utilización actual es significativamente mayor que el objetivo, el HPA aumenta el número de réplicas hasta el maxReplicas configurado.
+    
+    Scale In (Reducir): Si la utilización actual es significativamente menor que el objetivo y ha permanecido así durante un período de estabilización (por defecto, 5 minutos), el HPA reduce el número de réplicas hasta el minReplicas configurado.
+
+
+
+Diferencia Clave con Cluster Autoscaler
+Es importante notar que el HPA solo escala los Pods dentro de los nodos existentes. Si el scale out del HPA resulta en Pods que no pueden ser programados por falta de recursos en el nodo, entra en juego el Cluster Autoscaler (otro componente de GKE) para añadir nuevos nodos al clúster para que los Pods puedan ser alojados.
+
+
+***
+
