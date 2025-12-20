@@ -1,6 +1,7 @@
 # Resource: Vertical Pod Autoscaler
 # We dont have dedicated Kubernetes resource in terraform for VPA
 # We will use Resource: kubernetes_manifest
+# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest
 resource "kubernetes_manifest" "myapp1_vpa" {
   manifest = {
     apiVersion = "autoscaling.k8s.io/v1"

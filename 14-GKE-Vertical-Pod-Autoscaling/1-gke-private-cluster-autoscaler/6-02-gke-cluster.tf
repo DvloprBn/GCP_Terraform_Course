@@ -40,6 +40,7 @@ resource "google_container_cluster" "gke_cluster" {
     }
   }
   # Enable Vertical Pod Autoscaling
+  # EL CEREBRO: Activa el Vertical Pod Autoscaling en el cluster
   vertical_pod_autoscaling {
     enabled = true
   }  
