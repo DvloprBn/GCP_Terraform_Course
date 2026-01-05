@@ -17,6 +17,9 @@ resource "google_container_node_pool" "linux_nodepool_1" {
     oauth_scopes    = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
+    # desde la VM sera posible realizar la concexion a cualquier nodo presente dentro de la VPC. 
+    # esto es posible al estar presente en la misma VPC
+    # por lo que no es necesario agregar ninguyna etiqueta.
     #tags = [tolist(google_compute_firewall.fw_ssh.target_tags)[0]]
     disk_size_gb = 20
     disk_type = "pd-standard" # Supported pd-standard, pd-balanced or pd-ssd, default is pd-standard    

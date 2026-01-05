@@ -1,4 +1,5 @@
 # Resource Block: Reserver Internal IP Address for Bastion Host
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address
 resource "google_compute_address" "bastion_internal_ip" {
   name         = "${local.name}-bastion-internal-ip"
   description  = "Internal IP address reserved for Bastion VM"
@@ -13,7 +14,7 @@ resource "google_compute_address" "bastion_internal_ip" {
 resource "google_compute_instance" "bastion" {
   name         = "${local.name}-bastion-vm"
   machine_type = var.machine_type
-  zone         = "us-central1-a"
+  zone         = "us-east1-b"               # "us-central1"
   tags        = [tolist(google_compute_firewall.fw_ssh.target_tags)[0]]
   boot_disk {
     initialize_params {

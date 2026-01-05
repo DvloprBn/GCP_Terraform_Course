@@ -19,4 +19,6 @@ resource "google_compute_subnetwork" "mysubnet2" {
   name = "subnet2"
   ip_cidr_range = "10.132.0.0/20"
   network = google_compute_network.myvpc.id 
+  # Este atributo es clave: permite acceder a servicios de Google sin IP pública
+  # private_ip_google_access = true
 }

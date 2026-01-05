@@ -1,6 +1,5 @@
 gcp_project     = "tutorialgcp001"
-gcp_region1     = "us-east1"               # "us-central1"
-machine_type    = "e2-medium"
+gcp_region1     = "us-east1"
 environment     = "dev"
 business_divsion = "hr"
 subnet_ip_range  = "10.128.0.0/20"
