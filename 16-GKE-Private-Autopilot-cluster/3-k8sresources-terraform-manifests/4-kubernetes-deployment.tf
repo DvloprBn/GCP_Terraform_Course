@@ -9,6 +9,7 @@ resource "kubernetes_deployment_v1" "myapp1" {
  
   spec {
     replicas = 2
+    #replicas = 10
 
     selector {
       match_labels = {
@@ -29,6 +30,17 @@ resource "kubernetes_deployment_v1" "myapp1" {
           name  = "myapp1-container"
           port {
             container_port = 80
+          }
+          # Kubernetes Resources: Requests and Limits
+          resources {
+            limits = {
+              cpu    = "400m"
+              memory = "256Mi"
+            }
+            requests = {
+              cpu    = "200m"
+              memory = "128Mi"
+            }
           }
           }
         }

@@ -13,7 +13,7 @@ data "google_container_cluster" "gke" {
 output "gke_cluster_details" {
   value = {
     gke_endpoint = data.google_container_cluster.gke.endpoint
-    gke_cluster_ca_certificate = data.google_container_cluster.gke.master_auth.0.cluster_ca_certificate
+    #gke_cluster_ca_certificate = data.google_container_cluster.gke.master_auth.0.cluster_ca_certificate
   }
 }
 

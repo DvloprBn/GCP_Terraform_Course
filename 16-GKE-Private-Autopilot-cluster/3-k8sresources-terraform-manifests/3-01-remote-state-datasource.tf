@@ -3,7 +3,7 @@ data "terraform_remote_state" "gke" {
   backend = "gcs"
   config = {
     bucket = "terraform-on-gcp-gke"
-    prefix = "dev/gke-cluster-private"
+    prefix = "dev/gke-cluster-private-autopilot"
   }  
 }
 
