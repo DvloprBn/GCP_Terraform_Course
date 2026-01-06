@@ -8,8 +8,8 @@ resource "kubernetes_deployment_v1" "myapp1" {
   } 
  
   spec {
-    replicas = 2
-    #replicas = 10
+    # replicas = 2
+    replicas = 10
 
     selector {
       match_labels = {

@@ -175,7 +175,58 @@ Standard VS Autoscaler CLusters
 
 
 
-* 
+
+
+## Cloud NAT
+* ¿Qué es Cloud NAT?
+
+Cloud NAT es un servicio gestionado de red que permite que ciertos recursos (como máquinas virtuales en la nube) que no tienen una dirección IP pública puedan conectarse a internet.
+
+Para un servidor con datos sensibles. 
+* Por seguridad, no quieres que nadie pueda intentar entrar en él, así que le asignas solo una IP interna (privada). 
+* El problema es que ese servidor a veces necesita salir a internet (por ejemplo, para descargar actualizaciones de software). Aquí es donde entra Cloud NAT.
+
+
+* ¿Cómo funciona?
+Tráfico de salida: Cuando tu servidor privado quiere "hablar" con internet, envía el paquete a Cloud NAT.
+
+Traducción: Cloud NAT cambia la dirección IP privada del servidor por una IP pública que el servicio gestiona.
+
+Respuesta: Cuando internet responde, Cloud NAT sabe exactamente a qué servidor interno enviarle esa información y traduce la IP de vuelta.
+
+
+* Ventajas principales
+Seguridad mejorada: Los recursos externos no pueden iniciar una conexión directa con tus instancias privadas. Solo se permiten conexiones que tus instancias hayan iniciado primero.
+
+Escalabilidad: Al ser un servicio gestionado (especialmente en Google Cloud), no tienes que administrar máquinas virtuales que actúen como puertas de enlace; el sistema escala automáticamente según tu tráfico.
+
+Disponibilidad: No es un único punto de fallo, ya que está integrado en el tejido de la red de la nube.
+
+
+### Configuración de Cloud NAT con Terraform
+
+Para que Cloud NAT funcione, necesitas tres componentes básicos en GCP: 
+  * una __Red VPC__, (Definir la Red VPC)
+    * __Definir una Subred__ (sin IP pública para sus instancias)
+  * un __Cloud Router__ (que gestiona las tablas de rutas) [Crear el Cloud Router (necesario para NAT)]
+  * y __el recurso de Cloud NAT__ en sí. (Configurar el Gateway de Cloud NAT)
+
+
+
+### Explicación de los parámetros clave:
+* __nat_ip_allocate_option = "AUTO_ONLY"__: 
+  * Le dice a Google que asigne automáticamente direcciones IP externas. Si necesitaras IPs fijas (por ejemplo, para que un cliente las ponga en una lista blanca), usarías __MANUAL_ONLY__.
+
+* __source_subnetwork_ip_ranges_to_nat__: 
+  * Permitimos que todas las subredes de la VPC usen el NAT. También podrías especificar solo una subred específica.
+
+
+* __Log Config__: Es muy útil para SRE  habilitar los logs para auditar las conexiones y detectar errores de red.
+
+
+
+
+
 
 
 ********************************************************************
@@ -336,3 +387,9 @@ Clean-Up
         cd 12-GKE-Private-Standard-Cluster/p1-gke-private-cluster-autoscaler/
         terraform apply -destroy -auto-approve
         rm -rf .terraform* 
+
+
+
+
+
+

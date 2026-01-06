@@ -3,7 +3,7 @@ resource "google_container_cluster" "gke_cluster" {
   name     = "${local.name}-gke-cluster-autopilot"
   location = var.gcp_region1
 
-  # Autopilot Cluster  ...  Important!!!
+  # Autopilot Cluster
   enable_autopilot = true
    
   # Network
