@@ -349,3 +349,25 @@ Note 3: PVC Status changes from __Pending to Bound__ after MySQL Deployment.
       * Pod <-- K8s ReplicaSet  <--  k8s Deployment
 * PVC <---> PV <-- SC
 * SC --->  PV   --> Compute Engine Persisten Disk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h mysql -pdbpassword11
