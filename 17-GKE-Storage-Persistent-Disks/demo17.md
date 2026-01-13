@@ -357,6 +357,7 @@ Note 3: PVC Status changes from __Pending to Bound__ after MySQL Deployment.
 
 
 
+&B25m?e3Xc_N0wZ*t
 
 
 
@@ -371,3 +372,6 @@ Note 3: PVC Status changes from __Pending to Bound__ after MySQL Deployment.
 
 
 kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h mysql -pdbpassword11
+
+
+kubectl delete -f 2-k8sresources-yaml
