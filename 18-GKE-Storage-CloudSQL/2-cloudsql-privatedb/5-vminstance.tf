@@ -16,7 +16,7 @@ resource "google_compute_firewall" "fw_ssh" {
 resource "google_compute_instance" "myapp1" {
   name         = "mysql-client"
   machine_type = "e2-micro"
-  zone         = "us-central1-a"
+  zone         = "us-east-b"
   tags        = [tolist(google_compute_firewall.fw_ssh.target_tags)[0]]
   boot_disk {
     initialize_params {
